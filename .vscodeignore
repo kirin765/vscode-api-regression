@@ -25,3 +25,4 @@ tools/**
 .mise.toml
 tsconfig.json
 tsconfig.build.json
+docs/marketplace-listing.md
