@@ -1,0 +1,52 @@
+API Regression — End User License Agreement
+
+Copyright (c) 2026 Giwan. All rights reserved.
+
+This software is licensed, not sold. The terms below apply to the packaged
+extension distributed through the Visual Studio Marketplace.
+
+1. LICENSE GRANT
+   Subject to payment of the applicable fee, the publisher grants you a
+   non-exclusive, non-transferable license to install and use one copy of
+   API Regression for your own use on machines you control, for the major
+   version covered by your license key.
+
+2. TRIAL
+   API Regression may be evaluated free of charge for 14 days from the first
+   time you start the trial on a given VS Code profile.
+
+3. RESTRICTIONS
+   You may not redistribute, resell, sublicense, or make the software available
+   to third parties as a service. You may not remove or alter license
+   verification, or circumvent the trial or license mechanism.
+
+4. UPDATES AND SUPPORT
+   Minor and patch updates within the covered major version are provided at no
+   additional cost. Support and update terms are described in docs/support.md,
+   which forms part of this agreement.
+
+5. OWNERSHIP
+   The software, including its source code and documentation, remains the
+   property of the publisher. Your configuration files, baselines and exported
+   reports are and remain your property.
+
+6. NO WARRANTY
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+   FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+
+   API Regression reports observed response differences. It does not determine
+   whether a change is breaking, and an unchanged response does not prove that
+   an API is correct.
+
+7. LIMITATION OF LIABILITY
+   IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+   DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+   OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+   USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+8. THIRD-PARTY COMPONENTS
+   This extension bundles only code authored for this project at runtime. It
+   depends on VS Code APIs provided by Microsoft under their own terms.
+
+For licensing questions, use the support channel listed in docs/support.md.

@@ -1,0 +1,229 @@
+{
+  "name": "api-regression",
+  "displayName": "API Regression",
+  "description": "Save an API response baseline, rerun the endpoint, and inspect meaningful JSON differences with explicit comparison rules.",
+  "version": "0.1.0",
+  "publisher": "botmaker",
+  "license": "SEE LICENSE IN LICENSE",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/botmaker/api-regression"
+  },
+  "engines": {
+    "vscode": "^1.85.0",
+    "node": ">=20"
+  },
+  "categories": [
+    "Testing",
+    "Other"
+  ],
+  "keywords": [
+    "api regression",
+    "json response diff",
+    "api snapshot",
+    "api baseline",
+    "rest"
+  ],
+  "activationEvents": [
+    "onStartupFinished",
+    "workspaceContains:.api-regression/config.json"
+  ],
+  "main": "./dist/extension.js",
+  "icon": "media/icon.png",
+  "contributes": {
+    "commands": [
+      {
+        "command": "apiRegression.initConfig",
+        "title": "API Regression: Create Configuration"
+      },
+      {
+        "command": "apiRegression.openConfig",
+        "title": "API Regression: Open Configuration"
+      },
+      {
+        "command": "apiRegression.validateConfig",
+        "title": "API Regression: Validate Configuration"
+      },
+      {
+        "command": "apiRegression.captureBaseline",
+        "title": "API Regression: Capture Baseline"
+      },
+      {
+        "command": "apiRegression.rerunEndpoint",
+        "title": "API Regression: Rerun and Compare Endpoint"
+      },
+      {
+        "command": "apiRegression.rerunGroup",
+        "title": "API Regression: Rerun and Compare Selected Endpoints"
+      },
+      {
+        "command": "apiRegression.replaceBaseline",
+        "title": "API Regression: Replace Baseline From Last Run"
+      },
+      {
+        "command": "apiRegression.exportReport",
+        "title": "API Regression: Export Markdown Report"
+      },
+      {
+        "command": "apiRegression.exportBaseline",
+        "title": "API Regression: Export Redacted Baseline"
+      },
+      {
+        "command": "apiRegression.manageCredentials",
+        "title": "API Regression: Manage Credentials"
+      },
+      {
+        "command": "apiRegression.deleteBaseline",
+        "title": "API Regression: Delete Baseline"
+      },
+      {
+        "command": "apiRegression.refresh",
+        "title": "API Regression: Refresh",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "apiRegression.licenseStatus",
+        "title": "API Regression: License Status"
+      },
+      {
+        "command": "apiRegression.startTrial",
+        "title": "API Regression: Start Trial"
+      },
+      {
+        "command": "apiRegression.enterLicense",
+        "title": "API Regression: Enter License Key"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "apiRegression",
+          "title": "API Regression",
+          "icon": "media/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "apiRegression": [
+        {
+          "id": "apiRegression.endpoints",
+          "name": "Endpoints"
+        },
+        {
+          "id": "apiRegression.results",
+          "name": "Last Results"
+        }
+      ]
+    },
+    "menus": {
+      "view/title": [
+        {
+          "command": "apiRegression.refresh",
+          "when": "view == apiRegression.endpoints",
+          "group": "navigation"
+        },
+        {
+          "command": "apiRegression.captureBaseline",
+          "when": "view == apiRegression.endpoints",
+          "group": "1_run@1"
+        },
+        {
+          "command": "apiRegression.rerunEndpoint",
+          "when": "view == apiRegression.results",
+          "group": "navigation@2"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "apiRegression.captureBaseline",
+          "when": "view == apiRegression.endpoints && viewItem == apiRegression.endpoint",
+          "group": "1_run@1"
+        },
+        {
+          "command": "apiRegression.rerunEndpoint",
+          "when": "view == apiRegression.endpoints && viewItem == apiRegression.endpoint",
+          "group": "1_run@2"
+        },
+        {
+          "command": "apiRegression.replaceBaseline",
+          "when": "view == apiRegression.endpoints && viewItem == apiRegression.endpoint",
+          "group": "2_baseline@1"
+        },
+        {
+          "command": "apiRegression.exportBaseline",
+          "when": "view == apiRegression.endpoints && viewItem == apiRegression.endpoint",
+          "group": "2_baseline@2"
+        },
+        {
+          "command": "apiRegression.deleteBaseline",
+          "when": "view == apiRegression.endpoints && viewItem == apiRegression.endpoint",
+          "group": "3_manage@1"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "API Regression",
+      "properties": {
+        "apiRegression.requestTimeoutMs": {
+          "type": "number",
+          "default": 15000,
+          "minimum": 1000,
+          "maximum": 120000,
+          "description": "Per-request timeout in milliseconds."
+        },
+        "apiRegression.maxResponseBytes": {
+          "type": "number",
+          "default": 2097152,
+          "minimum": 1024,
+          "maximum": 52428800,
+          "description": "Maximum decoded response size in bytes before the run fails."
+        },
+        "apiRegression.maxBatchEndpoints": {
+          "type": "number",
+          "default": 10,
+          "minimum": 1,
+          "maximum": 50,
+          "description": "Maximum number of endpoints in a single batch run."
+        },
+        "apiRegression.maxDiffEntries": {
+          "type": "number",
+          "default": 2000,
+          "minimum": 50,
+          "maximum": 50000,
+          "description": "Maximum number of difference entries kept before output is truncated."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "build": "npm run typecheck && node esbuild.mjs",
+    "package": "node esbuild.mjs --production",
+    "watch": "node esbuild.mjs --watch",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:host": "npm run build && tsc -p tsconfig.build.json && vscode-test",
+    "fixture": "node fixtures/server.mjs",
+    "verify": "npm run typecheck && npm run lint && npm run test && npm run package",
+    "vsce:ls": "vsce ls --no-dependencies",
+    "vsce:package": "vsce package --no-dependencies"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^22.10.0",
+    "@types/vscode": "^1.85.0",
+    "@typescript-eslint/eslint-plugin": "^8.18.0",
+    "@typescript-eslint/parser": "^8.18.0",
+    "@vscode/test-cli": "^0.0.10",
+    "@vscode/test-electron": "^2.4.1",
+    "@vscode/vsce": "^3.2.1",
+    "esbuild": "^0.24.0",
+    "eslint": "^8.57.1",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  }
+}
