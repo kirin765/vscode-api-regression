@@ -122,7 +122,14 @@ function serialize(value, bigNumber) {
 }
 
 export function createServer() {
-  const state = { requests: 0, lastHeaders: undefined };
+  // `mode` models a deployed API version. Change it at runtime via the
+  // /__demo/mode endpoint to simulate shipping a code change between a
+  // baseline capture and a rerun.
+  const state = {
+    requests: 0,
+    lastHeaders: undefined,
+    mode: process.env.DEMO_MODE ?? 'default'
+  };
 
   const server = http.createServer((req, res) => {
     state.requests += 1;
@@ -130,7 +137,9 @@ export function createServer() {
     const url = new URL(req.url ?? '/', 'http://localhost');
     const path = url.pathname;
     const variant =
-      url.searchParams.get('variant') ?? req.headers['x-demo-variant'] ?? 'default';
+      url.searchParams.get('variant') ??
+      req.headers['x-demo-variant'] ??
+      (url.searchParams.has('reset') ? 'default' : state.mode);
 
     const json = (status, body, extraHeaders = {}) => {
       res.writeHead(status, {
@@ -139,6 +148,15 @@ export function createServer() {
       });
       res.end(body);
     };
+
+    if (path === '/__demo/mode') {
+      const requested = url.searchParams.get('set');
+      if (requested) {
+        state.mode = requested;
+      }
+      json(200, JSON.stringify({ mode: state.mode }));
+      return;
+    }
 
     if (path === '/api/products') {
       json(200, serialize(variantBody(variant)));

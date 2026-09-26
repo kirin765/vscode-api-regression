@@ -29,8 +29,16 @@ Example: the baseline has `price: 19.99`; the new response has `price: "19.99"`.
    npm run fixture
    ```
 
-4. In the API Regression view (activity bar), pick **Products (demo)**, then **Capture Baseline**.
-5. Pick **Products with a changed response (demo)** and **Rerun and Compare Endpoint**. A native diff opens showing a number-to-string change with the timestamp field ignored.
+4. In the API Regression view (activity bar), pick **Products (demo)**, then **Capture Baseline** and confirm the run.
+5. Simulate a code change by switching the fixture to its changed variant:
+
+   ```bash
+   curl "http://127.0.0.1:8787/__demo/mode?set=changed"
+   ```
+
+6. Pick **Products (demo)** again and **Rerun and Compare Endpoint**. A native diff opens showing a number-to-string change (`19.99` → `"19.99"`) and an item swap, with the timestamp fields ignored.
+
+   Switch back with `?set=default`. The **Products pinned to the changed variant (demo)** endpoint always requests the changed body, which is handy for a quick obvious diff.
 
 ## Configuration
 

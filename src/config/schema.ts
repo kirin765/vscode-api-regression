@@ -82,8 +82,8 @@ export function createConfigTemplate(port = 8787): ApiRegressionConfig {
         }
       },
       {
-        id: 'products-changed',
-        name: 'Products with a changed response (demo)',
+        id: 'products-pinned-changed',
+        name: 'Products pinned to the changed variant (demo)',
         environment: 'local',
         path: '/api/products',
         method: 'GET',
