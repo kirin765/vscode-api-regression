@@ -2,13 +2,12 @@
   "name": "api-regression",
   "displayName": "API Regression",
   "description": "Save an API response baseline, rerun the endpoint, and inspect meaningful JSON differences with explicit comparison rules.",
-  "version": "0.1.0",
-  "publisher": "botmaker",
+  "version": "0.1.1",
+  "publisher": "kirin765",
   "license": "SEE LICENSE IN LICENSE",
-  "private": true,
   "repository": {
     "type": "git",
-    "url": "https://github.com/botmaker/api-regression"
+    "url": "https://github.com/kirin765/vscode-api-regression"
   },
   "engines": {
     "vscode": "^1.85.0",
